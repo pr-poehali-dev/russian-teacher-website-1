@@ -14,6 +14,7 @@ const Index = () => {
               <a href="#about" className="text-sm hover:text-accent transition-colors">О себе</a>
               <a href="#education" className="text-sm hover:text-accent transition-colors">Образование</a>
               <a href="#qualifications" className="text-sm hover:text-accent transition-colors">Квалификация</a>
+              <a href="#publications" className="text-sm hover:text-accent transition-colors">Публикации</a>
               <a href="#awards" className="text-sm hover:text-accent transition-colors">Награды</a>
             </div>
           </nav>
@@ -52,7 +53,7 @@ const Index = () => {
 
       <Separator className="container mx-auto" />
 
-      <section id="education" className="py-16 md:py-24">
+      <section id="education" className="py-16 md:py-24 bg-secondary/30">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-12 flex items-center gap-3">
@@ -96,7 +97,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="qualifications" className="py-16 md:py-24 bg-secondary/30">
+      <section id="qualifications" className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-12 flex items-center gap-3">
@@ -134,6 +135,113 @@ const Index = () => {
                   </div>
                   <p className="text-sm text-muted-foreground mb-2">Яндекс.Учебник</p>
                   <p className="text-sm">36 часов</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="publications" className="py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-primary mb-12 flex items-center gap-3">
+              <Icon name="FileText" className="w-8 h-8 text-accent" />
+              Методические разработки и публикации
+            </h2>
+            <div className="space-y-6">
+              <Card className="border-l-4 border-l-primary/30 hover:shadow-lg transition-shadow">
+                <CardContent className="pt-6">
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <div className="flex-1">
+                      <h3 className="font-serif font-semibold text-lg mb-2">"Интерактивные методы работы с текстом на уроках литературы"</h3>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+                        <Icon name="Calendar" className="w-4 h-4" />
+                        <span>2024</span>
+                        <span className="mx-2">•</span>
+                        <Icon name="BookMarked" className="w-4 h-4" />
+                        <span>Журнал "Филологический вестник"</span>
+                      </div>
+                      <p className="text-sm text-foreground/70">Статья описывает авторскую методику работы с художественным текстом, включающую элементы геймификации и цифровые инструменты для повышения вовлеченности учащихся.</p>
+                    </div>
+                    <Badge variant="secondary" className="flex-shrink-0">Статья</Badge>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-primary/30 hover:shadow-lg transition-shadow">
+                <CardContent className="pt-6">
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <div className="flex-1">
+                      <h3 className="font-serif font-semibold text-lg mb-2">Методическое пособие "Подготовка к итоговому сочинению: пошаговый алгоритм"</h3>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+                        <Icon name="Calendar" className="w-4 h-4" />
+                        <span>2023</span>
+                        <span className="mx-2">•</span>
+                        <Icon name="Users" className="w-4 h-4" />
+                        <span>Использовано более 50 педагогами региона</span>
+                      </div>
+                      <p className="text-sm text-foreground/70">Практическое руководство содержит систематизированный подход к обучению написанию итогового сочинения с примерами работ и критериями оценивания.</p>
+                    </div>
+                    <Badge variant="secondary" className="flex-shrink-0">Пособие</Badge>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-primary/30 hover:shadow-lg transition-shadow">
+                <CardContent className="pt-6">
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <div className="flex-1">
+                      <h3 className="font-serif font-semibold text-lg mb-2">"Развитие читательской грамотности через проектную деятельность"</h3>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+                        <Icon name="Calendar" className="w-4 h-4" />
+                        <span>2023</span>
+                        <span className="mx-2">•</span>
+                        <Icon name="Presentation" className="w-4 h-4" />
+                        <span>Региональная педагогическая конференция</span>
+                      </div>
+                      <p className="text-sm text-foreground/70">Доклад представлен на конференции "Современные подходы в филологическом образовании", отмечен дипломом участника.</p>
+                    </div>
+                    <Badge variant="secondary" className="flex-shrink-0">Доклад</Badge>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-primary/30 hover:shadow-lg transition-shadow">
+                <CardContent className="pt-6">
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <div className="flex-1">
+                      <h3 className="font-serif font-semibold text-lg mb-2">Рабочая программа элективного курса "Тайны русского слова"</h3>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+                        <Icon name="Calendar" className="w-4 h-4" />
+                        <span>2022</span>
+                        <span className="mx-2">•</span>
+                        <Icon name="GraduationCap" className="w-4 h-4" />
+                        <span>Для учащихся 9-11 классов</span>
+                      </div>
+                      <p className="text-sm text-foreground/70">Авторская программа углубленного изучения этимологии, истории языка и стилистики. Одобрена методическим советом школы.</p>
+                    </div>
+                    <Badge variant="secondary" className="flex-shrink-0">Программа</Badge>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-l-4 border-l-primary/30 hover:shadow-lg transition-shadow">
+                <CardContent className="pt-6">
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <div className="flex-1">
+                      <h3 className="font-serif font-semibold text-lg mb-2">"Использование цифровых образовательных платформ в преподавании русского языка"</h3>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+                        <Icon name="Calendar" className="w-4 h-4" />
+                        <span>2021</span>
+                        <span className="mx-2">•</span>
+                        <Icon name="Globe" className="w-4 h-4" />
+                        <span>Образовательный портал "Педсовет.org"</span>
+                      </div>
+                      <p className="text-sm text-foreground/70">Обзор и анализ эффективности применения различных онлайн-платформ для организации дистанционного и смешанного обучения.</p>
+                    </div>
+                    <Badge variant="secondary" className="flex-shrink-0">Статья</Badge>
+                  </div>
                 </CardContent>
               </Card>
             </div>
