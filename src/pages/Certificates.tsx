@@ -2,46 +2,29 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 
-const certificatesData: Record<string, { title: string; images: string[] }> = {
-  "additional-education": {
-    title: "Дополнительное образование",
-    images: ["https://cdn.poehali.dev/files/ef0155e1-4853-4330-9642-28323a6d3edf.jpg"],
-  },
-  "higher-education": {
-    title: "Высшее педагогическое образование",
-    images: [],
-  },
-  "qualification-2023": {
-    title: "Современные образовательные технологии в преподавании филологии",
-    images: [],
-  },
-  "qualification-2022": {
-    title: "Подготовка учащихся к ОГЭ и ЕГЭ по русскому языку",
-    images: [],
-  },
-  "qualification-2021": {
-    title: "Цифровые инструменты в работе учителя-словесника",
-    images: [],
-  },
-  "award-ministry": {
-    title: "Почётная грамота Министерства образования",
-    images: [],
-  },
-  "award-municipal": {
-    title: "Победитель муниципального конкурса",
-    images: [],
-  },
-  "award-students": {
-    title: "Успехи учеников",
-    images: [],
-  },
-  "award-ege": {
-    title: "Высокие результаты ЕГЭ",
-    images: [],
-  },
+const CERTIFICATES_API = "https://functions.poehali.dev/38839045-2b7b-4eef-93e1-e8ae4cbac347";
+const UPLOAD_API = "https://functions.poehali.dev/9d42a4ac-79a8-428e-b91b-d5e9edae0785";
+
+interface Certificate {
+  id: number;
+  category_id: string;
+  image_url: string;
+  uploaded_at: string;
+}
+
+const certificatesTitles: Record<string, string> = {
+  "additional-education": "Дополнительное образование",
+  "higher-education": "Высшее педагогическое образование",
+  "qualification-2023": "Современные образовательные технологии в преподавании филологии",
+  "qualification-2022": "Подготовка учащихся к ОГЭ и ЕГЭ по русскому языку",
+  "qualification-2021": "Цифровые инструменты в работе учителя-словесника",
+  "award-ministry": "Почётная грамота Министерства образования",
+  "award-municipal": "Победитель муниципального конкурса",
+  "award-students": "Успехи учеников",
+  "award-ege": "Высокие результаты ЕГЭ",
 };
 
 const Certificates = () => {
@@ -49,12 +32,36 @@ const Certificates = () => {
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [images, setImages] = useState<string[]>(id ? certificatesData[id]?.images || [] : []);
+  const [certificates, setCertificates] = useState<Certificate[]>([]);
   const [isUploading, setIsUploading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   
-  const data = id ? certificatesData[id] : null;
+  const title = id ? certificatesTitles[id] : null;
 
-  if (!data) {
+  useEffect(() => {
+    if (id) {
+      loadCertificates();
+    }
+  }, [id]);
+
+  const loadCertificates = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`${CERTIFICATES_API}?category_id=${id}`);
+      const data = await response.json();
+      setCertificates(data.certificates || []);
+    } catch (error) {
+      toast({
+        title: "Ошибка",
+        description: "Не удалось загрузить сертификаты",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (!title) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-white to-secondary/20 flex items-center justify-center">
         <div className="text-center">
@@ -75,8 +82,6 @@ const Certificates = () => {
     setIsUploading(true);
 
     try {
-      const newImages: string[] = [];
-      
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         
@@ -90,21 +95,36 @@ const Certificates = () => {
         }
 
         const reader = new FileReader();
-        const imageUrl = await new Promise<string>((resolve) => {
+        const base64Image = await new Promise<string>((resolve) => {
           reader.onload = (e) => {
             resolve(e.target?.result as string);
           };
           reader.readAsDataURL(file);
         });
-        
-        newImages.push(imageUrl);
+
+        const uploadResponse = await fetch(UPLOAD_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image: base64Image }),
+        });
+
+        const uploadData = await uploadResponse.json();
+
+        await fetch(CERTIFICATES_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            category_id: id,
+            image_url: uploadData.url,
+          }),
+        });
       }
 
-      setImages([...images, ...newImages]);
+      await loadCertificates();
       
       toast({
         title: "Успешно",
-        description: `Загружено файлов: ${newImages.length}`,
+        description: `Загружено файлов: ${files.length}`,
       });
     } catch (error) {
       toast({
@@ -120,12 +140,27 @@ const Certificates = () => {
     }
   };
 
-  const handleRemoveImage = (index: number) => {
-    setImages(images.filter((_, i) => i !== index));
-    toast({
-      title: "Удалено",
-      description: "Изображение удалено",
-    });
+  const handleRemoveImage = async (certId: number) => {
+    try {
+      await fetch(CERTIFICATES_API, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: certId }),
+      });
+
+      setCertificates(certificates.filter((cert) => cert.id !== certId));
+      
+      toast({
+        title: "Удалено",
+        description: "Изображение удалено",
+      });
+    } catch (error) {
+      toast({
+        title: "Ошибка",
+        description: "Не удалось удалить изображение",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -144,11 +179,11 @@ const Certificates = () => {
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center justify-between mb-12">
               <h1 className="text-3xl md:text-4xl font-serif font-bold text-primary">
-                {data.title}
+                {title}
               </h1>
               <Button 
                 onClick={() => fileInputRef.current?.click()}
-                disabled={isUploading}
+                disabled={isUploading || isLoading}
                 className="gap-2"
               >
                 <Icon name="Upload" className="w-4 h-4" />
@@ -164,23 +199,27 @@ const Certificates = () => {
               />
             </div>
 
-            {images.length > 0 ? (
+            {isLoading ? (
+              <div className="flex items-center justify-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+              </div>
+            ) : certificates.length > 0 ? (
               <div className="grid gap-8">
-                {images.map((image, index) => (
-                  <Card key={index} className="relative group overflow-hidden">
+                {certificates.map((cert) => (
+                  <Card key={cert.id} className="relative group overflow-hidden">
                     <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
                       <Button
                         variant="destructive"
                         size="icon"
-                        onClick={() => handleRemoveImage(index)}
+                        onClick={() => handleRemoveImage(cert.id)}
                       >
                         <Icon name="Trash2" className="w-4 h-4" />
                       </Button>
                     </div>
                     <div className="p-4">
                       <img
-                        src={image}
-                        alt={`${data.title} - документ ${index + 1}`}
+                        src={cert.image_url}
+                        alt={`${title} - документ`}
                         className="w-full h-auto rounded-md"
                       />
                     </div>

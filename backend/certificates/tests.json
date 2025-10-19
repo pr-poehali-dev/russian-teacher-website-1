@@ -1,0 +1,42 @@
+{
+  "tests": [
+    {
+      "name": "Get certificates for category",
+      "method": "GET",
+      "path": "/?category_id=higher-education",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "certificates": "array"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Create new certificate",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "category_id": "test-category",
+        "image_url": "https://example.com/image.jpg"
+      },
+      "expectedStatus": 201,
+      "expectedBody": {
+        "certificate": {
+          "id": "number",
+          "category_id": "string",
+          "image_url": "string"
+        }
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Handle missing category_id",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "tests": [
+    {
+      "name": "Upload image successfully",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "image": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "url": "string",
+        "id": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Handle missing image",
+      "method": "POST",
+      "path": "/",
+      "body": {},
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
