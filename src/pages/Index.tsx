@@ -2,8 +2,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import Icon from "@/components/ui/icon";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-secondary/20">
       <header className="sticky top-0 bg-white/80 backdrop-blur-md z-10 border-b border-border/50">
@@ -61,9 +64,15 @@ const Index = () => {
               Сведения об образовании
             </h2>
             <div className="space-y-6">
-              <Card className="border-l-4 border-l-accent hover:shadow-lg transition-shadow">
+              <Card 
+                className="border-l-4 border-l-accent hover:shadow-lg transition-shadow cursor-pointer"
+                onClick={() => navigate('/certificates/higher-education')}
+              >
                 <CardHeader>
-                  <CardTitle className="text-xl font-serif">Высшее педагогическое образование</CardTitle>
+                  <CardTitle className="text-xl font-serif flex items-center justify-between">
+                    Высшее педагогическое образование
+                    <Icon name="ExternalLink" className="w-5 h-5 text-muted-foreground" />
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex items-start gap-2">
@@ -84,19 +93,18 @@ const Index = () => {
                 </CardContent>
               </Card>
 
-              <Card className="border-l-4 border-l-accent/50 hover:shadow-lg transition-shadow">
+              <Card 
+                className="border-l-4 border-l-accent/50 hover:shadow-lg transition-shadow cursor-pointer"
+                onClick={() => navigate('/certificates/additional-education')}
+              >
                 <CardHeader>
-                  <CardTitle className="text-xl font-serif">Дополнительное образование</CardTitle>
+                  <CardTitle className="text-xl font-serif flex items-center justify-between">
+                    Дополнительное образование
+                    <Icon name="ExternalLink" className="w-5 h-5 text-muted-foreground" />
+                  </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-2">
                   <p className="text-sm">Регулярное участие в семинарах и вебинарах по современным методикам преподавания русского языка</p>
-                  <div className="mt-4">
-                    <img 
-                      src="https://cdn.poehali.dev/files/ef0155e1-4853-4330-9642-28323a6d3edf.jpg" 
-                      alt="Презентация по методике преподавания"
-                      className="w-full rounded-md shadow-md"
-                    />
-                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -112,33 +120,51 @@ const Index = () => {
               Повышение квалификации
             </h2>
             <div className="grid gap-6">
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card 
+                className="hover:shadow-lg transition-shadow cursor-pointer"
+                onClick={() => navigate('/certificates/qualification-2023')}
+              >
                 <CardContent className="pt-6">
                   <div className="flex items-start justify-between gap-4 mb-3">
-                    <h3 className="font-serif font-semibold text-lg">Современные образовательные технологии в преподавании филологии</h3>
-                    <Badge variant="outline">2023</Badge>
+                    <div className="flex items-center gap-2 flex-1">
+                      <h3 className="font-serif font-semibold text-lg">Современные образовательные технологии в преподавании филологии</h3>
+                      <Icon name="ExternalLink" className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                    </div>
+                    <Badge variant="outline" className="flex-shrink-0">2023</Badge>
                   </div>
                   <p className="text-sm text-muted-foreground mb-2">Институт развития образования Республики Бурятия</p>
                   <p className="text-sm">72 часа</p>
                 </CardContent>
               </Card>
 
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card 
+                className="hover:shadow-lg transition-shadow cursor-pointer"
+                onClick={() => navigate('/certificates/qualification-2022')}
+              >
                 <CardContent className="pt-6">
                   <div className="flex items-start justify-between gap-4 mb-3">
-                    <h3 className="font-serif font-semibold text-lg">Подготовка учащихся к ОГЭ и ЕГЭ по русскому языку</h3>
-                    <Badge variant="outline">2022</Badge>
+                    <div className="flex items-center gap-2 flex-1">
+                      <h3 className="font-serif font-semibold text-lg">Подготовка учащихся к ОГЭ и ЕГЭ по русскому языку</h3>
+                      <Icon name="ExternalLink" className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                    </div>
+                    <Badge variant="outline" className="flex-shrink-0">2022</Badge>
                   </div>
                   <p className="text-sm text-muted-foreground mb-2">Московский институт открытого образования</p>
                   <p className="text-sm">108 часов</p>
                 </CardContent>
               </Card>
 
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card 
+                className="hover:shadow-lg transition-shadow cursor-pointer"
+                onClick={() => navigate('/certificates/qualification-2021')}
+              >
                 <CardContent className="pt-6">
                   <div className="flex items-start justify-between gap-4 mb-3">
-                    <h3 className="font-serif font-semibold text-lg">Цифровые инструменты в работе учителя-словесника</h3>
-                    <Badge variant="outline">2021</Badge>
+                    <div className="flex items-center gap-2 flex-1">
+                      <h3 className="font-serif font-semibold text-lg">Цифровые инструменты в работе учителя-словесника</h3>
+                      <Icon name="ExternalLink" className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                    </div>
+                    <Badge variant="outline" className="flex-shrink-0">2021</Badge>
                   </div>
                   <p className="text-sm text-muted-foreground mb-2">Яндекс.Учебник</p>
                   <p className="text-sm">36 часов</p>
@@ -264,12 +290,18 @@ const Index = () => {
               Награды и достижения
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
-              <Card className="bg-gradient-to-br from-accent/5 to-transparent border-accent/20 hover:shadow-lg transition-shadow">
+              <Card 
+                className="bg-gradient-to-br from-accent/5 to-transparent border-accent/20 hover:shadow-lg transition-shadow cursor-pointer"
+                onClick={() => navigate('/certificates/award-ministry')}
+              >
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-3 mb-3">
                     <Icon name="Medal" className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
-                    <div>
-                      <h3 className="font-serif font-semibold text-lg mb-1">Почётная грамота Министерства образования</h3>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-serif font-semibold text-lg mb-1">Почётная грамота Министерства образования</h3>
+                        <Icon name="ExternalLink" className="w-4 h-4 text-muted-foreground" />
+                      </div>
                       <p className="text-sm text-muted-foreground">2022 год</p>
                     </div>
                   </div>
@@ -277,12 +309,18 @@ const Index = () => {
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-accent/5 to-transparent border-accent/20 hover:shadow-lg transition-shadow">
+              <Card 
+                className="bg-gradient-to-br from-accent/5 to-transparent border-accent/20 hover:shadow-lg transition-shadow cursor-pointer"
+                onClick={() => navigate('/certificates/award-municipal')}
+              >
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-3 mb-3">
                     <Icon name="Star" className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
-                    <div>
-                      <h3 className="font-serif font-semibold text-lg mb-1">Победитель муниципального конкурса</h3>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-serif font-semibold text-lg mb-1">Победитель муниципального конкурса</h3>
+                        <Icon name="ExternalLink" className="w-4 h-4 text-muted-foreground" />
+                      </div>
                       <p className="text-sm text-muted-foreground">2021 год</p>
                     </div>
                   </div>
@@ -290,12 +328,18 @@ const Index = () => {
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-accent/5 to-transparent border-accent/20 hover:shadow-lg transition-shadow">
+              <Card 
+                className="bg-gradient-to-br from-accent/5 to-transparent border-accent/20 hover:shadow-lg transition-shadow cursor-pointer"
+                onClick={() => navigate('/certificates/award-students')}
+              >
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-3 mb-3">
                     <Icon name="Users" className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
-                    <div>
-                      <h3 className="font-serif font-semibold text-lg mb-1">Успехи учеников</h3>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-serif font-semibold text-lg mb-1">Успехи учеников</h3>
+                        <Icon name="ExternalLink" className="w-4 h-4 text-muted-foreground" />
+                      </div>
                       <p className="text-sm text-muted-foreground">2020-2024 годы</p>
                     </div>
                   </div>
@@ -303,12 +347,18 @@ const Index = () => {
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-accent/5 to-transparent border-accent/20 hover:shadow-lg transition-shadow">
+              <Card 
+                className="bg-gradient-to-br from-accent/5 to-transparent border-accent/20 hover:shadow-lg transition-shadow cursor-pointer"
+                onClick={() => navigate('/certificates/award-ege')}
+              >
                 <CardContent className="pt-6">
                   <div className="flex items-start gap-3 mb-3">
                     <Icon name="Target" className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
-                    <div>
-                      <h3 className="font-serif font-semibold text-lg mb-1">Высокие результаты ЕГЭ</h3>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-serif font-semibold text-lg mb-1">Высокие результаты ЕГЭ</h3>
+                        <Icon name="ExternalLink" className="w-4 h-4 text-muted-foreground" />
+                      </div>
                       <p className="text-sm text-muted-foreground">2023 год</p>
                     </div>
                   </div>
