@@ -27,7 +27,7 @@ const Index = () => {
             <div className="flex flex-col md:flex-row gap-8 items-start">
               <div className="w-full md:w-64 flex-shrink-0">
                 <img
-                  src="https://cdn.poehali.dev/projects/ec1f15b9-0f07-4152-a7f1-3da586a0f872/files/2f1d86a6-c30d-42b8-b5f1-4ed8c9bb121a.jpg"
+                  src="https://cdn.poehali.dev/files/a8d41cd4-44f3-401e-8a12-f33a6ede6321.jpg"
                   alt="Доржиева Цыцык Викторовна"
                   className="w-full aspect-[3/4] object-cover rounded-lg shadow-lg"
                 />
