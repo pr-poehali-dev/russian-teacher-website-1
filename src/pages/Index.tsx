@@ -88,8 +88,15 @@ const Index = () => {
                 <CardHeader>
                   <CardTitle className="text-xl font-serif">Дополнительное образование</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-2">
+                <CardContent className="space-y-4">
                   <p className="text-sm">Регулярное участие в семинарах и вебинарах по современным методикам преподавания русского языка</p>
+                  <div className="mt-4">
+                    <img 
+                      src="https://cdn.poehali.dev/files/ef0155e1-4853-4330-9642-28323a6d3edf.jpg" 
+                      alt="Презентация по методике преподавания"
+                      className="w-full rounded-md shadow-md"
+                    />
+                  </div>
                 </CardContent>
               </Card>
             </div>
